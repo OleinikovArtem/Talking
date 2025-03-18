@@ -6,7 +6,7 @@ import { ME_ID } from '@/constants/base'
 
 export default async function RootPage() {
   const { userId } = await auth()
-
+  console.log('userId', userId)
   if (userId) redirect(`/channels/${ME_ID}`)
 
   return (
