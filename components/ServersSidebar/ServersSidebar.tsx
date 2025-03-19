@@ -38,7 +38,7 @@ export const ServersSidebar = async () => {
               </Tooltip>
             </li>
 
-            <hr className="divider w-10"/>
+            {servers.length > 0 && <hr className="divider w-10"/>}
 
             {servers.map(server => (
               <li className="server-sidebar__item" key={server.id}>

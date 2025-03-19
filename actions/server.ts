@@ -28,5 +28,15 @@ export const createServer = async (formData: FormData) => {
 
   console.log('New server has been created:', server.name);
 
+  const channels = await prisma.channel.createMany({
+    data: [
+      { name: 'general', type: 'TEXT', serverId: server.id },
+      { name: 'General', type: 'VOICE', serverId: server.id },
+    ],
+  })
+
+  console.log('Default channels have been created:', channels);
+
+
   redirect('/channels/' + server.id)
 };

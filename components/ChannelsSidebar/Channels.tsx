@@ -1,37 +1,39 @@
-'use client'
-
-import { useDeferredValue, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Channel } from '@prisma/client'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Search } from './Search'
+import { LetterText, Volume2 } from 'lucide-react'
 
 export const Channels = ({ channels }: { channels: Channel[] }) => {
-  const [query, setQuery] = useState('')
-  const deferredQuery = useDeferredValue(query)
 
-  const filteredItems = channels.filter((item) =>
-    item.name.toLowerCase().includes(deferredQuery.toLowerCase()),
-  )
-
-  const router = useRouter()
-  useEffect(() => { router.refresh() }, [router])
+  const { voice, text } = channels.reduce((acc, channel) => {
+    if (channel.type === 'TEXT') return { ...acc, text: [...acc.text, channel] }
+    if (channel.type === 'VOICE') return { ...acc, voice: [...acc.voice, channel] }
+    return acc
+  }, { text: [] as Channel[], voice: [] as Channel[] })
 
   return (
     <>
-      <div className="p-2 border-b-2 border-slate-800">
-        <Search onSearch={setQuery}/>
-      </div>
       <ScrollArea className="channels__list">
         <ul>
-          {filteredItems.length > 0 ? (
-            filteredItems.map((item) => (
-              <li className="channels__item" key={item.name}>{item.name}</li>
-            ))
-          ) : (
-            <li className="text-gray-400 p-2">No results found</li>
-          )}
+          <h2>Text channels:</h2>
+          {text.map((channel) => (
+            <li className="channels__item" key={channel.name}>
+              <LetterText/>{channel.name}
+            </li>
+          ))}
+
+          <hr className="divider p-2"/>
+
+          <h2>Voice channels:</h2>
+
+          {voice.map((channel) => (
+            <li className="channels__item" key={channel.name}>
+              <Volume2 className="mr-2"/>{channel.name}
+            </li>
+          ))}
+
+          {channels.length === 0 ? <li className="text-gray-400 p-2">No channels found</li> : null}
+
         </ul>
       </ScrollArea>
     </>
