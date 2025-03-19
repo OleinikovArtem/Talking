@@ -25,3 +25,7 @@
 --- 
 
 💻 Work in Progress – Contributions & Ideas Welcome! 🚧
+
+
+[//]: # ( npx prisma db push --schema=./prisma/schema.prisma )
+[//]: # ( npx prisma generate --schema=./prisma/schema.prisma)
