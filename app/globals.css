@@ -133,3 +133,12 @@
 .auth-provider__button {
   @apply cursor-pointer px-4 py-2 rounded-full text-white text-sm font-semibold w-26 border;
 }
+
+.channels__list {
+  overflow: hidden;
+  height: calc(100vh - 110px);
+}
+
+.channels__item {
+  @apply cursor-pointer p-4 hover:bg-slate-600;
+}

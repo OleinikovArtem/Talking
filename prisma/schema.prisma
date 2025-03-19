@@ -26,6 +26,26 @@ model User {
   servers     Server[]
   memberships Membership[]
   messages    Message[]
+
+  sentFriendRequests     Friendship[] @relation("sentFriendRequests")
+  receivedFriendRequests Friendship[] @relation("receivedFriendRequests")
+}
+
+model Friendship {
+  id         String           @id @default(cuid())
+  senderId   String
+  receiverId String
+  status     FriendshipStatus @default(PENDING)
+
+  sender   User @relation("sentFriendRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("receivedFriendRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  BLOCKED
 }
 
 model Account {
@@ -70,10 +90,16 @@ model Membership {
   id       String @id @default(cuid())
   userId   String
   serverId String
-  role     String
+  role     Role   @default(USER)
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  ADMIN
+  USER
+  MODERATOR
 }
 
 model Channel {

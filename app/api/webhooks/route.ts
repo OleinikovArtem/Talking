@@ -1,7 +1,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import { prisma } from '@/lib/prisma'
+import { createUser } from '@/actions/user'
 
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET
@@ -49,15 +49,11 @@ export async function POST(req: Request) {
   // Do something with payload
   const eventType = evt.type
   if (eventType === 'user.created') {
-    const newUser = await prisma.user.create({
-      data: {
-        name: `${evt.data.first_name} ${evt.data.last_name}` || evt.data.first_name || evt.data.last_name || '',
-        email: evt.data.email_addresses[0]?.email_address,
-        image: evt.data.image_url,
-      }
+    await createUser({
+      email: evt.data.email_addresses[0]?.email_address || '',
+      name: `${evt.data.first_name} ${evt.data.last_name}` || evt.data.first_name || evt.data.last_name || '',
+      image: evt.data.image_url || '',
     })
-
-    console.log('New user has been created: ', newUser.email)
   }
 
   return new Response('Webhook received', { status: 200 })
