@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-white bg-slate-600`}
       >
-      <main className="flex h-screen w-screen">
+      <main className="flex h-screen w-screen overflow-hidden">
         {children}
       </main>
       </body>
