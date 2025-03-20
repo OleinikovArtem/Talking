@@ -24,10 +24,10 @@ export const ServersSidebar = async () => {
       <nav>
         <TooltipProvider>
           <ul className="flex flex-col gap-4 items-center justify-center">
-            <li className="server-sidebar__item">
+            <li>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href={`/channels/${ME_ID}`}>
+                  <Link href={`/channels/${ME_ID}`} className="server-sidebar__item">
                     <Avatar className="w-[48px] h-[48px]">
                       <AvatarImage src={user?.image || ''} alt={user?.name || ''}/>
                       <AvatarFallback className="bg-interit">ME</AvatarFallback>
@@ -41,10 +41,10 @@ export const ServersSidebar = async () => {
             {servers.length > 0 && <hr className="divider w-10"/>}
 
             {servers.map(server => (
-              <li className="server-sidebar__item" key={server.id}>
+              <li key={server.id}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link href={`/channels/${server.id}`} className="w-[48px] h-[48px] flex">
+                    <Link href={`/channels/${server.id}`} className="server-sidebar__item w-[48px] h-[48px] flex">
                       <Image src={server.image || 'https://placehold.co/24x24'}
                              alt={server.name}
                              width={24} height={24}
@@ -57,10 +57,10 @@ export const ServersSidebar = async () => {
             ))}
 
             <hr className="divider w-10"/>
-            <li className="server-sidebar__item">
+            <li>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/channels/create"><Plus/></Link>
+                  <Link href="/channels/create" className="server-sidebar__item"><Plus/></Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">Create new Server</TooltipContent>
               </Tooltip>

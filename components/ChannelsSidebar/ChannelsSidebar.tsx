@@ -26,7 +26,7 @@ export const ChannelsSidebar = async ({ serverId }: { serverId: string }) => {
     getChannels(_serverId),
     getFriends(user?.id!),
   ])
-  
+
   return (
     <div className="bg-slate-700 min-w-60">
       {isMainChannel ? <Friends friends={friends}/> : <Channels channels={channels}/>}

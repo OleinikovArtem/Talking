@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Channel } from '@prisma/client'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -17,8 +18,10 @@ export const Channels = ({ channels }: { channels: Channel[] }) => {
         <ul>
           <h2>Text channels:</h2>
           {text.map((channel) => (
-            <li className="channels__item" key={channel.name}>
-              <LetterText/>{channel.name}
+            <li key={channel.id}>
+              <Link href={`/channels/${channel.serverId}/${channel.id}`} className="channels__item">
+                <LetterText className="mr-2"/>{channel.name}
+              </Link>
             </li>
           ))}
 
@@ -27,8 +30,10 @@ export const Channels = ({ channels }: { channels: Channel[] }) => {
           <h2>Voice channels:</h2>
 
           {voice.map((channel) => (
-            <li className="channels__item" key={channel.name}>
-              <Volume2 className="mr-2"/>{channel.name}
+            <li key={channel.id}>
+              <Link href={`/channels/${channel.serverId}/${channel.id}`} className="channels__item">
+                <Volume2 className="mr-2"/>{channel.name}
+              </Link>
             </li>
           ))}
 

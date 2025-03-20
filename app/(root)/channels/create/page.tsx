@@ -1,18 +1,15 @@
 import { auth } from '@clerk/nextjs/server'
 
-import { ServersSidebar } from '@/components/ServersSidebar'
-import { ChannelsSidebar } from '@/components/ChannelsSidebar'
 import { CreateServerForm } from '@/components/CreateServerForm'
+import { MainLayout } from '@/components/MainLayout'
+import { ME_ID } from '@/constants/base'
 
-export default async function CreatePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+export default async function CreatePage() {
   const { userId } = await auth()
 
   return (
-    <>
-      <ServersSidebar />
-      <ChannelsSidebar serverId={id} />
-      <CreateServerForm userId={userId!} />
-    </>
-  );
+    <MainLayout serverId={ME_ID}>
+      <CreateServerForm userId={userId!}/>
+    </MainLayout>
+  )
 }
