@@ -4,10 +4,10 @@ import { auth } from '@clerk/nextjs/server'
 import { ME_ID } from '@/constants/base'
 import { getFriends, getUser } from '@/actions/user'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Channels } from './Channels'
 import { Friends } from '@/components/ChannelsSidebar/Friends'
 import { getChannels } from '@/actions/channel'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 
 
 export const ChannelsSidebar = async ({ serverId }: { serverId: string }) => {
@@ -30,11 +30,10 @@ export const ChannelsSidebar = async ({ serverId }: { serverId: string }) => {
   return (
     <div className="bg-slate-700 min-w-60">
       {isMainChannel ? <Friends friends={friends}/> : <Channels channels={channels}/>}
-      <div className="p-2 bg-slate-800">
-        <Avatar className="w-[40px] h-[40px]">
-          <AvatarImage src={user?.image || ''} alt={user?.name || ''}/>
-          <AvatarFallback className="bg-inherit">ME</AvatarFallback>
-        </Avatar>
+      <div className="p-2 bg-slate-800 h-[55px] flex items-center justify-between">
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </div>
   )

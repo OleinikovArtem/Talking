@@ -62,7 +62,7 @@ export const ServersSidebar = async () => {
                 <TooltipTrigger asChild>
                   <Link href="/channels/create" className="server-sidebar__item"><Plus/></Link>
                 </TooltipTrigger>
-                <TooltipContent side="right">Create new Server</TooltipContent>
+                <TooltipContent side="right">Add Server</TooltipContent>
               </Tooltip>
             </li>
           </ul>
