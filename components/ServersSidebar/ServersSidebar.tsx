@@ -17,7 +17,12 @@ export const ServersSidebar = async () => {
   if (!userId) redirect('/')
   const user = await getUser(userId)
 
-  const servers = await prisma.server.findMany({ where: { ownerId: user?.id } })
+  const servers = await prisma.server.findMany({ where: {
+    OR: [
+      { ownerId: user?.id },
+      { memberships: { some: { userId: user?.id } } }
+    ]
+    }})
 
   return (
     <header className="bg-slate-800 min-w-18 pt-4">
@@ -60,7 +65,7 @@ export const ServersSidebar = async () => {
             <li>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/channels/create" className="server-sidebar__item"><Plus/></Link>
+                  <Link href="/channels/add-server" className="server-sidebar__item"><Plus/></Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">Add Server</TooltipContent>
               </Tooltip>

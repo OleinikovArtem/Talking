@@ -42,7 +42,7 @@ export const CreateServerForm = ({ userId }: { userId: string }) => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center w-1/3 m-auto bg-slate-800 px-16 py-8 rounded-lg">
+    <div className="flex flex-col justify-center items-center m-auto bg-slate-800 px-16 py-8 rounded-lg">
       <h1 className="text-3xl mb-6">Create a new Server!</h1>
 
       <Form {...form}>

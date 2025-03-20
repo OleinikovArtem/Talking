@@ -3,9 +3,13 @@
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 
-type SearchProps = { onSearch?: (query: string) => void }
+type SearchProps = {
+  onSearch?: (query: string) => void;
+  placeholder: string;
+  className?: string;
+}
 
-export const Search = ({ onSearch }: SearchProps) => {
+export const Search = ({ onSearch, placeholder, className }: SearchProps) => {
   const [query, setQuery] = useState('')
 
   return (
@@ -16,8 +20,8 @@ export const Search = ({ onSearch }: SearchProps) => {
       }}
     >
       <Input
-        className="border-none text-white bg-slate-800"
-        placeholder="Find or start a conversation"
+        className={className}
+        placeholder={placeholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
