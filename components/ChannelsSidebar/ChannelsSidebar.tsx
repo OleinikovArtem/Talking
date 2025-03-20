@@ -28,7 +28,7 @@ export const ChannelsSidebar = async ({ serverId }: { serverId: string }) => {
   ])
 
   return (
-    <div className="bg-slate-700 min-w-60">
+    <div className="bg-slate-700 min-w-60 border-r border-l border-slate-600">
       {isMainChannel ? <Friends friends={friends}/> : <Channels channels={channels}/>}
       <div className="p-2 bg-slate-800 h-[55px] flex items-center justify-between">
         <SignedIn>
