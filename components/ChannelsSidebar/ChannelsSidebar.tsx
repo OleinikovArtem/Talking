@@ -14,17 +14,18 @@ export const ChannelsSidebar = async ({ serverId }: { serverId: string }) => {
   const { userId } = await auth()
   if (!userId) redirect('/')
   const user = await getUser(userId)
+  if (!user) redirect('/')
 
   const isMainChannel = decodeURIComponent(serverId) === ME_ID
   let _serverId = serverId
 
   if (isMainChannel) {
-    user?.id && (_serverId = user.id)
+    _serverId = user.id
   }
 
   const [channels, friends] = await Promise.all([
     getChannels(_serverId),
-    getFriends(user?.id!),
+    getFriends(user.id),
   ])
 
   return (

@@ -11,12 +11,16 @@ import { getMessages } from '@/actions/channel'
 
 import { getUserInitials } from '@/lib/utils'
 
+
+// TODO add poling or use Socket.is for real time chat.
 export default async function ChannelPage({ params }: { params: Promise<{ serverId: string; channelId: string }> }) {
   const { serverId, channelId } = await params
   const { userId } = await auth()
   if (!userId) redirect('/')
 
   const [user, messages] = await Promise.all([getUser(userId), getMessages(channelId)])
+
+  if (!user) redirect('/')
 
   return (
     <MainLayout serverId={serverId}>
@@ -54,7 +58,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ server
           })}
         </ScrollArea>
         <footer className="flex items-center space-x-2 p-2 bg-slate-800 h-[55px]">
-          <MessageInput userId={user?.id!} channelId={channelId}/>
+          <MessageInput userId={user.id} channelId={channelId}/>
         </footer>
       </div>
     </MainLayout>

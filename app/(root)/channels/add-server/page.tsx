@@ -13,6 +13,7 @@ export default async function AddServerPage() {
   const { userId } = await auth()
   if (!userId) redirect('/')
   const user = await getUser(userId)
+  if (!user) redirect('/')
 
   return (
     <MainLayout serverId={ME_ID}>
@@ -26,10 +27,10 @@ export default async function AddServerPage() {
           </TabsList>
 
           <TabsContent value="search">
-            <SearchServer userId={user?.id!} />
+            <SearchServer userId={user.id!} />
           </TabsContent>
           <TabsContent value="create">
-            <CreateServerForm userId={user?.id!}/>
+            <CreateServerForm userId={user.id!}/>
           </TabsContent>
         </Tabs>
       </div>

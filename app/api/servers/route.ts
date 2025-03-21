@@ -19,6 +19,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(servers)
   } catch (error) {
+    console.error('Failed to fetch servers:', error)
     return NextResponse.json({ error: 'Failed to fetch servers' }, { status: 500 })
   }
 }
